@@ -1,28 +1,28 @@
-import z from "zod";
-import { extractValidationData } from "../../common/utils/extractErrorData.js";
+import z from 'zod';
+import { extractValidationData } from '../../common/utils/extractErrorData.js';
 
 const registerSchema = z.object({
   name: z
     .string({
-      invalid_type_error: "name must be a string",
-      required_error: "name is required",
+      invalid_type_error: 'name must be a string',
+      required_error: 'name is required',
     })
-    .min(3, { message: "name is to short" })
-    .max(50, { message: "name it to long" }),
-  email: z.string().email({ message: "invalid email" }),
+    .min(3, { message: 'name is to short' })
+    .max(50, { message: 'name it to long' }),
+  email: z.string().email({ message: 'invalid email' }),
   password: z
     .string()
-    .min(8, { message: "password must be a last 8 characteres" })
-    .max(16, { message: "Password is too long" }),
+    .min(8, { message: 'password must be a last 8 characteres' })
+    .max(16, { message: 'maximo 16 caracteres' }),
   role: z.string(),
 });
 
 const loginUserSchema = z.object({
-  email: z.string().email({ message: "invalid email" }),
+  email: z.string().email({ message: 'invalid email' }),
   password: z
     .string()
-    .min(8, { message: "password mus be a last 8 characteres" })
-    .max(16, { message: "Password is too long" }),
+    .min(8, { message: 'password mus be a last 8 characteres' })
+    .max(16, { message: 'maximo 16 caracteres' }),
 });
 
 export function validateUser(data) {

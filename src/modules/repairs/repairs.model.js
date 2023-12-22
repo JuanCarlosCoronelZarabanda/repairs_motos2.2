@@ -1,10 +1,9 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/database/database.js';
 
-const Repair = sequelize.define('repairs', {
+const Repairs = sequelize.define('repairs', {
   id: {
     primaryKey: true,
-    allowNull: false,
     autoIncrement: true,
     type: DataTypes.INTEGER,
   },
@@ -12,14 +11,9 @@ const Repair = sequelize.define('repairs', {
     type: DataTypes.DATE,
     allowNull: false,
   },
-  numberMotors: {
+  motorsNumber: {
     type: DataTypes.FLOAT,
     allowNull: false,
-  },
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    field: 'user_id',
   },
   description: {
     type: DataTypes.TEXT,
@@ -27,9 +21,13 @@ const Repair = sequelize.define('repairs', {
   },
   status: {
     type: DataTypes.ENUM('pending', 'completed', 'cancelled'),
+    allowNull: false,
     defaultValue: 'pending',
+  },
+  userId: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
 });
 
-export default Repair;
+export default Repairs;

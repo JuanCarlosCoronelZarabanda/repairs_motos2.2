@@ -1,4 +1,4 @@
-import cors from "cors";
+import cors from 'cors';
 
 export const enableCors = (app, acceptedOrigins) => {
   app.use(
@@ -12,7 +12,7 @@ export const enableCors = (app, acceptedOrigins) => {
           return callback(null, true);
         }
 
-        return callback(new Error("not allowed by cors"));
+        return callback(new Error('not allowed by cors'));
       },
     })
   );

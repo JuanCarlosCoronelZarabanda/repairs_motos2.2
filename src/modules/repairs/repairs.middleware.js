@@ -1,6 +1,6 @@
-import { AppError } from "../../common/errors/appError.js";
-import { catchAsync } from "../../common/errors/catchAsync.js";
-import { RepairsService } from "./repairs.service.js";
+import { AppError } from '../../common/errors/appError.js';
+import { catchAsync } from '../../common/errors/catchAsync.js';
+import { RepairsService } from './repairs.service.js';
 
 export const validatePendingRepair = catchAsync(async (req, res, next) => {
   const { id } = req.params;

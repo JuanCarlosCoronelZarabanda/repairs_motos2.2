@@ -1,8 +1,8 @@
-import jwt from "jsonwebtoken";
-import envs from "../enviroments/enviroments.js";
+import jwt from 'jsonwebtoken';
+import envs from '../enviroments/enviroments.js';
 
 export const generateJWT = (id) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolver, reject) => {
     const payload = { id };
 
     jwt.sign(
@@ -16,7 +16,7 @@ export const generateJWT = (id) => {
           reject(err);
         }
 
-        resolve(token);
+        resolver(token);
       }
     );
   });

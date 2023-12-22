@@ -1,13 +1,20 @@
-import envs from "../../config/enviroments/enviroments.js";
-import { AppError } from "./appError.js";
-import Error from "./error.model.js";
+import envs from '../../config/enviroments/enviroments.js';
+import { AppError } from './appError.js';
+import Error from './error.model.js';
 
 const handleCastError23505 = () => {
-  return new AppError("Duplicate field value: please another value", 400);
+  return new AppError('Duplicate field value: please another value', 400);
 };
 
 const handleCastError22P02 = () => {
-  return new AppError("Ivalid data type in database", 400);
+  return new AppError('Ivalid data type in database', 400);
+};
+
+const handelCastError23503 = () => {
+  return new AppError(
+    'The user to whom you want to assign the repair does not exist',
+    400
+  );
 };
 
 const sendErrorDev = (err, res) => {
@@ -24,7 +31,6 @@ const sendErrorProd = async (err, res) => {
     status: err.status,
     message: err.message,
     stack: err.stack,
-    err,
   });
 
   if (err.isOperational) {
@@ -35,29 +41,28 @@ const sendErrorProd = async (err, res) => {
     });
   } else {
     //programming or other unknow error: don't leak error detail
-    console.log("ERROR:🧨 ", err);
+    console.log('ERROR 🧨: ', err);
     return res.status(500).json({
-      status: "fail",
-      message: "Something went very wrong",
+      status: 'fail',
+      message: 'Something went very wrong!',
     });
   }
 };
 
 export const globalHandleError = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
-  err.status = err.status || "fail";
+  err.status = err.status || 'fail';
 
-  if (envs.NODE_ENV === "development") {
-    console.log("desarrollo");
+  if (envs.NODE_ENV === 'development') {
     sendErrorDev(err, res);
   }
 
-  if (envs.NODE_ENV === "production") {
-    console.log("production");
+  if (envs.NODE_ENV === 'production') {
     let error = err;
 
-    if (err.parent?.code === "23505") error = handleCastError23505();
-    if (err.parent?.code === "22P02") error = handleCastError22P02();
-    sendErrorProd(err, res);
+    if (err.parent?.code === '23505') error = handleCastError23505();
+    if (err.parent?.code === '22P02') error = handleCastError22P02();
+    if (err.parent?.code === '23503') error = handelCastError23503();
+    sendErrorProd(error, res);
   }
 };

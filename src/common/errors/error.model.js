@@ -1,7 +1,7 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "./../../config/database/database.js";
+import { DataTypes } from 'sequelize';
+import { sequelize } from './../../config/database/database.js';
 
-const Error = sequelize.define("errors", {
+const Error = sequelize.define('errors', {
   id: {
     primaryKey: true,
     allowNull: false,
